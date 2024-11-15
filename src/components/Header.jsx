@@ -1,6 +1,9 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
+import TimerInput from "./TimerInput";
 
-function Header() {
+function Header({ handleAddTimer }) {
+  const [time, setTime] = useState("");
+
   const dialogRef = useRef();
 
   function openDialog() {
@@ -8,7 +11,15 @@ function Header() {
   }
 
   function closeDialog() {
-    if (dialogRef.current) dialogRef.close();
+    if (dialogRef.current) dialogRef.current.close();
+  }
+
+  function getTime(e) {
+    e.preventDefault();
+    handleAddTimer(time);
+    console.log("at getTime");
+    setTime("");
+    closeDialog();
   }
 
   return (
@@ -16,8 +27,18 @@ function Header() {
       <h1>Let's Create Some Timers</h1>
       <button onClick={openDialog}>New Timer</button>
       <dialog ref={dialogRef}>
-        <h1>Dialog is working!!!</h1>
-        <button>Close</button>
+        <form onSubmit={getTime}>
+          <label htmlFor="time">Enter time</label>
+          <input
+            value={time}
+            onChange={(e) => setTime(e.target.value)}
+            type="text"
+            id="time"
+          />
+          <button type="submit">Create</button>
+          <button onClick={closeDialog}>Cancel</button>
+        </form>
+        <TimerInput />
       </dialog>
     </div>
   );
