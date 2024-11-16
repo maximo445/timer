@@ -1,18 +1,43 @@
 import { useState } from "react";
 import Header from "./components/Header";
+import Timer from "./components/Timer";
 
 function App() {
   const [timers, setTimers] = useState([]);
 
-  function addTimer(time) {
-    setTimers((timers) => [time, ...timers]);
+  const [time, setTime] = useState([]);
+
+  function addToTime(unit) {
+    if (time.length <= 5) {
+      setTime((time) => [...time, unit]);
+    }
   }
 
-  console.log(timers);
+  function deleteTime() {
+    setTime((time) => time.slice(1));
+  }
+
+  function addTimer(time) {
+    setTimers((timers) => [time, ...timers]);
+    setTime([]);
+  }
+
+  console.log({ timers });
 
   return (
     <div>
-      <Header handleAddTimer={addTimer}></Header>
+      <Header
+        handleAddTimer={addTimer}
+        time={time}
+        setTime={setTime}
+        handleAddToTime={addToTime}
+        handleDeleteTime={deleteTime}
+      ></Header>
+      <div>
+        {timers.map((timer, index) => (
+          <Timer key={index} time={timer} />
+        ))}
+      </div>
     </div>
   );
 }

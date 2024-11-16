@@ -1,19 +1,12 @@
 import { useState } from "react";
 
-function TimerInput() {
-  const [time, setTime] = useState([]);
-
-  function addToTime(unit) {
-    if (time.length <= 5) {
-      setTime((time) => [...time, unit]);
-    }
-  }
-
-  console.log(time);
+function TimerInput({ time, addToTime, deleteTime }) {
+  const zeros = Array(6 - time.length).fill(0);
+  const fullTime = zeros.concat(time);
 
   return (
     <div>
-      <h1>00h 00m 00s</h1>
+      <h1>{`${fullTime[0]}${fullTime[1]}h ${fullTime[2]}${fullTime[3]}m ${fullTime[4]}${fullTime[5]}s`}</h1>
       <div>
         <button onClick={() => addToTime(1)}>1</button>
         <button onClick={() => addToTime(2)}>2</button>
@@ -24,7 +17,7 @@ function TimerInput() {
         <button onClick={() => addToTime(7)}>7</button>
         <button onClick={() => addToTime(8)}>8</button>
         <button onClick={() => addToTime(9)}>9</button>
-        <button>delete</button>
+        <button onClick={deleteTime}>delete</button>
       </div>
     </div>
   );
