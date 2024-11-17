@@ -19,7 +19,7 @@ function App() {
       <Header handleAddTimer={addTimer} timers={timers}></Header>
       {timers.length >= 1 && (
         <div className="w-full flex justify-center items-start">
-          <div className="bg-gradient-to-b from-black/90 via-gray-800/95 to-gray-900 h-5/6 w-5/6 flex justify-center items-center flex-wrap gap-6 p-8 rounded-2xl">
+          <div className="bg-gradient-to-b from-black/90 via-gray-800/95 to-gray-900 h-5/6 w-5/6 flex justify-center items-center flex-wrap gap-6 p-1 rounded-2xl">
             {timers.map((timer) => {
               return (
                 <Timer

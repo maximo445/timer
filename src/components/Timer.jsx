@@ -86,7 +86,7 @@ function Timer({ time, id, deleteTimer }) {
 
   return (
     <div
-      className={`flex flex-col justify-center items-center w-56 h-80 rounded-lg ${
+      className={`flex flex-col justify-center items-center w-full h-auto p-8 rounded-lg ${
         done
           ? "animate-colorPulse"
           : "bg-gradient-to-b from-cyan-700 via-cyan-800 to-cyan-950"
@@ -102,18 +102,21 @@ function Timer({ time, id, deleteTimer }) {
         </button>
       </div>
       <div>
-        <h1 className="text-2xl border border-red-500 border-4 w-36 h-36 flex justify-center items-center rounded-full">
+        <h1 className="text-4xl border border-red-500 border-8 w-52 h-52 flex justify-center items-center rounded-full">
           {timeFormatted}
         </h1>
         <div className="w-full flex justify-center items-center">
-          <button className="my-4 text-red-500 font-bold" onClick={reset}>
+          <button
+            className="my-4 text-red-500 font-bold text-2xl"
+            onClick={reset}
+          >
             reset
           </button>
         </div>
       </div>
       <div className="flex gap-5">
         <button
-          className="bg-slate-600 px-4 py-1 w-16 rounded-full flex justify-center items-center"
+          className="bg-slate-600 px-4 py-4 w-32  rounded-full flex justify-center items-center"
           onClick={add100}
         >
           +1:00
@@ -122,14 +125,14 @@ function Timer({ time, id, deleteTimer }) {
           <div>
             {isRunning ? (
               <button
-                className="bg-yellow-600/80 px-4 py-1 rounded-full w-16 flex justify-center items-center"
+                className="bg-yellow-600/80 px-4 py-4 w-32 rounded-full flex justify-center items-center"
                 onClick={stopTimer}
               >
                 pause
               </button>
             ) : (
               <button
-                className="bg-yellow-600/80 px-4 py-1 rounded-full w-16 flex justify-center items-center"
+                className="bg-yellow-600/80 px-4 py-4 w-32 rounded-full flex justify-center items-center"
                 onClick={runTimer}
               >
                 play

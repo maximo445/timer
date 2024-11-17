@@ -61,7 +61,7 @@ function Header({ handleAddTimer, timers }) {
         ></div>
       )}
       <dialog
-        className="bg-slate-800 text-slate-50 p-5 rounded-md"
+        className="bg-slate-800 text-slate-50 p-5 rounded-md w-screen h-screen"
         ref={dialogRef}
       >
         <form onSubmit={getTime}>
@@ -71,16 +71,16 @@ function Header({ handleAddTimer, timers }) {
             addToTime={handleAddToTime}
             deleteTime={handleDeleteTime}
           >
-            <div className="flex w-full gap-3 mt-4">
+            <div className="flex w-full gap-3 mt-3 ml-10">
               <button
-                className="bg-slate-300 text-slate-800 w-7 h-7 m-2 rounded-full"
+                className="bg-slate-300 text-slate-800 w-24 h-24 rounded-full"
                 type="button"
                 onClick={closeDialog}
               >
                 {"#"}
               </button>
               <button
-                className="bg-slate-100 text-slate-800 w-11 h-11 rounded-full"
+                className="bg-slate-100 text-slate-800 w-24 h-24 rounded-full"
                 type="submit"
               >
                 {">"}

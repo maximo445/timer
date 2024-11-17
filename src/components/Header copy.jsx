@@ -50,8 +50,8 @@ function Header({
     <div>
       <h1>Let's Create Some Timers</h1>
       <button onClick={openDialog}>New Timer</button>
-      <dialog ref={dialogRef}>
-        <form onSubmit={getTime}>
+      <dialog className="w-screen h-screen" ref={dialogRef}>
+        <form className="w-screen h-screen" onSubmit={getTime}>
           <button type="submit">Create</button>
           <button type="button" onClick={closeDialog}>
             Cancel
