@@ -7,12 +7,12 @@ const formatTime = (seconds) => {
   return `${h}:${m}:${s}`;
 };
 
-function Timer({ time }) {
+function Timer({ time, id, deleteTimer }) {
   const [totalTime, setTotalTime] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
 
-  const timeDisplay = useRef();
-
+  const displayTime = useRef();
+  const originalTime = useRef();
   const playStop = useRef();
 
   useEffect(() => {
@@ -43,10 +43,15 @@ function Timer({ time }) {
         total += +`${time[time.length - 6]}${time[time.length - 5]}` * 3600;
       }
       setTotalTime(total);
-      timeDisplay.current = formatTime(total);
+      displayTime.current = formatTime(total);
+      originalTime.current = total;
     }
     calcTotalTime();
   }, [time]);
+
+  if (totalTime === 0) {
+    clearInterval(playStop.current);
+  }
 
   function runTimer() {
     setIsRunning(true);
@@ -60,27 +65,36 @@ function Timer({ time }) {
     setIsRunning(false);
   }
 
+  function add100() {
+    setTotalTime((totalTime) => (totalTime += 60));
+  }
+
+  function reset() {
+    setTotalTime(originalTime.current);
+    stopTimer();
+  }
+
   const timeFormatted = formatTime(totalTime);
+  // const timeDisplay = formatTime(originalTime.current);
+  console.log(originalTime.current);
 
   return (
     <div>
       <div>
-        <h1>{timeDisplay.current}</h1>
-        <button>x</button>
+        <h1>{displayTime.current}</h1>
+        <button onClick={() => deleteTimer(id)}>x</button>
       </div>
       <div>
         <h1>{timeFormatted}</h1>
-        <button>reset</button>
+        <button onClick={reset}>reset</button>
       </div>
       <div>
-        <span>+1:00</span>
+        <button onClick={add100}>+1:00</button>
         {isRunning ? (
           <button onClick={stopTimer}>pause</button>
         ) : (
           <button onClick={runTimer}>play</button>
         )}
-
-        <span></span>
       </div>
     </div>
   );

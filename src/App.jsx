@@ -1,39 +1,32 @@
 import { useState } from "react";
 import Header from "./components/Header";
 import Timer from "./components/Timer";
+import { v4 as uuidv4 } from "uuid";
 
 function App() {
   const [timers, setTimers] = useState([]);
 
-  // const [time, setTime] = useState([]);
-
-  // function addToTime(unit) {
-  //   if (time.length <= 5) {
-  //     setTime((time) => [...time, unit]);
-  //   }
-  // }
-
-  // function deleteTime() {
-  //   setTime((time) => time.slice(1));
-  // }
-
   function addTimer(time) {
-    setTimers((timers) => [time, ...timers]);
-    // setTime([]);
+    setTimers((timers) => [{ id: uuidv4(), time }, ...timers]);
+  }
+
+  function deleteTimer(id) {
+    setTimers((timers) => timers.filter((timer) => timer.id !== id));
   }
 
   return (
     <div>
-      <Header
-        // time={time}
-        // setTime={setTime}
-        // handleAddToTime={addToTime}
-        // handleDeleteTime={deleteTime}
-        handleAddTimer={addTimer}
-      ></Header>
+      <Header handleAddTimer={addTimer}></Header>
       <div>
-        {timers.map((timer, index) => {
-          return <Timer key={`index${index}`} time={timer} />;
+        {timers.map((timer) => {
+          return (
+            <Timer
+              key={timer.id}
+              id={timer.id}
+              time={timer.time}
+              deleteTimer={deleteTimer}
+            />
+          );
         })}
       </div>
     </div>

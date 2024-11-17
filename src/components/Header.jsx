@@ -1,20 +1,8 @@
 import { useRef, useState } from "react";
 import TimerInput from "./TimerInput";
 
-function Header({
-  // time,
-  // setTime,
-  // handleAddToTime,
-  // handleDeleteTime,
-  handleAddTimer,
-}) {
+function Header({ handleAddTimer }) {
   const [time, setTime] = useState([]);
-
-  const [processedTime, setProcessedTime] = useState({
-    seconds: 0,
-    minutes: 0,
-    hours: 0,
-  });
 
   function handleAddToTime(unit) {
     if (time.length <= 5) {
