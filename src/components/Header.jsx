@@ -1,8 +1,9 @@
 import { useRef, useState } from "react";
 import TimerInput from "./TimerInput";
 
-function Header({ handleAddTimer }) {
+function Header({ handleAddTimer, timers }) {
   const [time, setTime] = useState([]);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   function handleAddToTime(unit) {
     if (time.length <= 5) {
@@ -17,12 +18,16 @@ function Header({ handleAddTimer }) {
   const dialogRef = useRef();
 
   function openDialog() {
-    if (dialogRef.current) dialogRef.current.showModal();
+    if (dialogRef.current) {
+      dialogRef.current.showModal();
+      setIsDialogOpen(true);
+    }
   }
 
   function closeDialog() {
     if (dialogRef.current) {
       dialogRef.current.close();
+      setIsDialogOpen(false);
       setTime([]);
     }
   }
@@ -36,8 +41,25 @@ function Header({ handleAddTimer }) {
 
   return (
     <div>
-      <h1>Let's Create Some Timers</h1>
-      <button onClick={openDialog}>New Timer</button>
+      <div className="flex flex-col w-full justify-center items-center h-40 p-8 text-center">
+        <h1 className="font-mono text-4xl drop-shadow-lg">
+          THE <span className="text-cyan-500">TIMER</span> COUNTDOWN APP
+        </h1>
+        {timers.length <= 4 && (
+          <button
+            className="bg-cyan-700 px-5 py-2 rounded mt-4"
+            onClick={openDialog}
+          >
+            <h1 className="text-xl drop-shadow-lg">New Timer</h1>
+          </button>
+        )}
+      </div>
+      {isDialogOpen && (
+        <div
+          className="fixed inset-0 bg-black opacity-80 z-10"
+          onClick={closeDialog} // Close dialog when clicking on the backdrop
+        ></div>
+      )}
       <dialog
         className="bg-slate-800 text-slate-50 p-5 rounded-md"
         ref={dialogRef}
