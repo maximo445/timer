@@ -18,7 +18,7 @@ function Header({
 
   function handleAddToTime(unit) {
     if (time.length <= 5) {
-      setTime((time) => [...time, unit]);
+      setTime((time) => [unit, ...time]);
     }
   }
 
