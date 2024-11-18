@@ -1,4 +1,6 @@
 import { useEffect, useRef, useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPause, faPlay, faTrash } from "@fortawesome/free-solid-svg-icons";
 
 const formatTime = (seconds) => {
   const h = String(Math.floor(seconds / 3600)).padStart(2, "0");
@@ -98,7 +100,7 @@ function Timer({ time, id, deleteTimer }) {
           className="bg-slate-600 w-7 h-7 rounded-full"
           onClick={() => deleteTimer(id)}
         >
-          x
+          <FontAwesomeIcon icon={faTrash} className="pause-icon" />
         </button>
       </div>
       <div>
@@ -107,7 +109,9 @@ function Timer({ time, id, deleteTimer }) {
         </h1>
         <div className="w-full flex justify-center items-center">
           <button
-            className="my-4 text-red-500 font-bold text-2xl"
+            className={`my-4  font-bold text-2xl ${
+              done ? "text-slate-50" : "text-red-500"
+            }`}
             onClick={reset}
           >
             reset
@@ -125,17 +129,17 @@ function Timer({ time, id, deleteTimer }) {
           <div>
             {isRunning ? (
               <button
-                className="bg-yellow-600/80 px-4 py-4 w-32 rounded-full flex justify-center items-center"
+                className="bg-yellow-600/80 px-4 py-5 w-32 rounded-full flex justify-center items-center"
                 onClick={stopTimer}
               >
-                pause
+                <FontAwesomeIcon icon={faPause} className="pause-icon" />
               </button>
             ) : (
               <button
-                className="bg-yellow-600/80 px-4 py-4 w-32 rounded-full flex justify-center items-center"
+                className="bg-yellow-600/80 px-4 py-5 w-32 rounded-full flex justify-center items-center"
                 onClick={runTimer}
               >
-                play
+                <FontAwesomeIcon icon={faPlay} className="pause-icon" />
               </button>
             )}{" "}
           </div>

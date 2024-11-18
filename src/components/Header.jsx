@@ -1,18 +1,27 @@
 import { useRef, useState } from "react";
 import TimerInput from "./TimerInput";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash, faPlay } from "@fortawesome/free-solid-svg-icons";
 
 function Header({ handleAddTimer, timers }) {
   const [time, setTime] = useState([]);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
+  const isTimeValid = time.length > 0;
+
   function handleAddToTime(unit) {
     if (time.length <= 5) {
+      if (unit === 0 && time.length === 0) return;
       setTime((time) => [...time, unit]);
     }
   }
 
   function handleDeleteTime() {
-    setTime((time) => time.slice(1));
+    setTime((time) => {
+      let tepmTime = [...time];
+      tepmTime.pop();
+      return tepmTime;
+    });
   }
 
   const dialogRef = useRef();
@@ -34,6 +43,7 @@ function Header({ handleAddTimer, timers }) {
 
   function getTime(e) {
     e.preventDefault();
+
     handleAddTimer(time);
 
     closeDialog();
@@ -61,7 +71,7 @@ function Header({ handleAddTimer, timers }) {
         ></div>
       )}
       <dialog
-        className="bg-slate-800 text-slate-50 p-5 rounded-md w-screen h-screen"
+        className="bg-slate-800 text-slate-50 p-5 rounded-md w-screen h-screen sm:w-80 sm:h-auto"
         ref={dialogRef}
       >
         <form onSubmit={getTime}>
@@ -71,20 +81,22 @@ function Header({ handleAddTimer, timers }) {
             addToTime={handleAddToTime}
             deleteTime={handleDeleteTime}
           >
-            <div className="flex w-full gap-3 mt-3 ml-10">
+            <div className="grid grid-cols-3 w-full gap-3 mt-3">
               <button
-                className="bg-slate-300 text-slate-800 w-24 h-24 rounded-full"
+                className="bg-slate-300 text-slate-800 w-24 h-24 rounded-full sm:h-10 sm:w-10"
                 type="button"
                 onClick={closeDialog}
               >
-                {"#"}
+                <FontAwesomeIcon icon={faTrash} />
               </button>
-              <button
-                className="bg-slate-100 text-slate-800 w-24 h-24 rounded-full"
-                type="submit"
-              >
-                {">"}
-              </button>
+              {isTimeValid && (
+                <button
+                  className="bg-slate-100 text-slate-800 w-24 h-24 rounded-full sm:h-10 sm:w-10"
+                  type="submit"
+                >
+                  <FontAwesomeIcon icon={faPlay} />
+                </button>
+              )}
             </div>
           </TimerInput>
         </form>
